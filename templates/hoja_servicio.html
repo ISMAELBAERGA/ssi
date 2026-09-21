@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white"><h5>Nueva Hoja de Servicio Técnico</h5></div>
+            <div class="card-body">
+                <form action="/hoja-servicio/nueva" method="POST">
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Seleccionar Cliente</label>
+                        <select name="cliente_id" class="form-select" required>
+                            <option value="">-- Elige un negocio registrado --</option>
+                            {% for cliente in lista_clientes %}
+                                <option value="{{ cliente[0] }}">{{ cliente[1] }} ({{ cliente[4] }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Fecha del Servicio</label>
+                            <input type="date" name="fecha_servicio" class="form-control" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Tipo de Infraestructura / Servicio</label>
+                            <select name="tipo_servicio" class="form-select" required>
+                                <option value="Mantenimiento Cámaras">Mantenimiento Cámaras</option>
+                                <option value="Infraestructura Redes">Infraestructura Redes de Data</option>
+                                <option value="Soporte IT Oficina">Soporte IT Oficina / Negocio</option>
+                                <option value="Otro">Otro Servicio</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Técnico Asignado</label>
+                        <input type="text" name="tecnico_asignado" class="form-control" placeholder="Tu nombre o el del técnico">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Descripción Detallada del Trabajo Realizado</label>
+                        <textarea name="descripcion_trabajo" class="form-control" rows="4" required placeholder="Ej: Se reorientaron 3 cámaras del perímetro exterior, se cambiaron conectores RJ45 sulfatados en el switch principal de data..."></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Materiales / Repuestos Utilizados</label>
+                        <textarea name="materiales_usados" class="form-control" rows="2" placeholder="Ej: 3 Baluns pasivos, 5 conectores RJ45 Cat6, 20 metros de cable UTP..."></textarea>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" name="enviar_correo" id="enviar_correo" checked>
+                        <label class="form-check-label" for="enviar_correo">
+                            <strong>Enviar copia de esta hoja de servicio de inmediato por correo electrónico al cliente</strong>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 btn-lg">Guardar y Procesar Servicio</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
